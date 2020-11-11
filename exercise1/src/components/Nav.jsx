@@ -1,11 +1,17 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { faSun } from '@fortawesome/free-solid-svg-icons'
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Switcher from './Switcher'
+import { store } from './StoreProvider'
 
 const Nav = () => {
+  const { state } = React.useContext(store)
+
+  const icon = state.darkMode ? faMoon : faSun;
+
   return (
     <nav
       css={css`
@@ -48,8 +54,13 @@ const Nav = () => {
         `}
         className="dark-mode-button"
       >
-        <FontAwesomeIcon color="#34374c" icon={faSun} size="lg" />
+        <FontAwesomeIcon
+          color={`${state.darkMode ? '#ffbf2f' : '#34374c'}`}
+          icon={icon}
+          size="lg"
+        />
       </button>
+      <Switcher />
     </nav>
   )
 }
